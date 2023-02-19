@@ -1,2 +1,2 @@
 # CS6910
-This repository will contain all the programming assignments for CS6910-Funadamentals of Deep Learning(IIT Madras)
+Assignment-1: Write your own backpropagation code and keep track of your experiments using wandb.ai
