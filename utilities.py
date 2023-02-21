@@ -1,16 +1,39 @@
 import numpy as np
+from keras.datasets import fashion_mnist
+from keras.datasets import mnist
+
+# Data Loader
+def dataloader(dataset_name : str) -> np.array:
+  if dataset_name == "mnist":
+    (X_train, y_train), (X_test, y_test) = mnist.load_data()
+  elif dataset_name == "fashion_mnist":
+    (X_train, y_train), (X_test, y_test) = fashion_mnist.load_data()
+  # Preprocess the data -- Normalize  
+  X_train , X_test = normalize(X_train) , normalize(X_test)
+  # Segregate into validation set(10% of train set) and training set
+  idx = np.random.choice(range(len(y_train)),size=len(y_train)//10,replace=False)
+  y_val = y_train[idx]
+  X_val = X_train[idx]
+  X_train = np.delete(X_train,idx,axis=0)
+  y_train = np.delete(y_train,idx)
+  return X_train, y_train, X_test, y_test, X_val, y_val
 
 # Data Preprocessing
 def normalize(x, eps=1e-5):
+ # Normalize the input data x to bring it in the range of [0.,1.]
  min = np.min(x)
  max = np.max(x)
  return (x - min) / (max - min)
 def onehot(x, num_classes = 10):
-  a = np.zeros(10)
+  # Create one-hot vectors for input label x as the output from the model will be
+  # a probability vector of length = number of classes
+  a = np.zeros(num_classes)
   a[x] = 1.
   return a
 
 # Activation Functions
+def indentity(x):
+  return x
 def sigmoid(x):
  return 1/(1+np.exp(-x))
 def tanh(x):
@@ -25,6 +48,8 @@ def softmax(x):
 # Defining loss functions
 def cross_entropy(y_pred, y_true):
  return np.mean(-(y_true * np.log(y_pred) + (1-y_true)*np.log(1-y_pred)))
+def mean_squared_error(y_pred, y_true):
+  return np.mean(np.square(y_pred - y_true))
 
 # Define known gradients of loss function and activation functions
 def grad_cross_entropy(y_pred, y_true):

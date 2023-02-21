@@ -10,16 +10,16 @@ def config_parser():
                         help='Project name used to track experiments in Weights & Biases dashboard')
     parser.add_argument('-we','wandb_entity',default='purvam',
                         help='Wandb Entity used to track experiments in the Weights & Biases dashboard')
-    parser.add_argument('-d', '--dataset',default='fashion_mnist',
-                        help='choices: ["mnist", "fashion_mnist"]')
+    parser.add_argument('-d', '--dataset',default='fashion_mnist', 
+                        choices = ["mnist", "fashion_mnist"])
     parser.add_argument('-e', '--epochs',default=1,
                         help='Number of epochs to train neural network.')
     parser.add_argument('-b', '--batch_size',default=4,
                         help='Batch size used to train neural network.')
     parser.add_argument('-l', '--loss',default='cross_entropy',
-                        help='choices: ["mean_squared_error", "cross_entropy"]')
+                        choices = ["mean_squared_error", "cross_entropy"])
     parser.add_argument('-o', '--optimizer',default='sgd',
-                        help='choices: ["sgd", "momentum", "nag", "rmsprop", "adam", "nadam"]')
+                        choices = ["sgd", "momentum", "nag", "rmsprop", "adam", "nadam"])
     parser.add_argument('-lr', '--learning_rate',default=0.1,
                         help='Learning rate used to optimize model parameters')
     parser.add_argument('-m', '--momentum',default=0.5,
@@ -35,13 +35,13 @@ def config_parser():
     parser.add_argument('-w_d', '--weight_decay',default=0.0,
                         help='Weight decay used by optimizers.')
     parser.add_argument('-w_i', '--weight_init', default='random',
-                        help='choices: ["random", "Xavier"]')
+                        choices = ["random", "Xavier"])
     parser.add_argument('-nhl', '--num_layers',default=1,
                         help='Number of hidden layers used in feedforward neural network.')
     parser.add_argument('-sz', '--hidden_size',default=4,
                         help='Number of hidden neurons in a feedforward layer.')
     parser.add_argument('-a', '--activation',default='sigmoid',
-                        help='choices: ["identity", "sigmoid", "tanh", "ReLU"]')
+                        choices = ["identity", "sigmoid", "tanh", "ReLU"])
     return parser
 
 
