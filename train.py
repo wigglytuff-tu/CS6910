@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import configargparse
+from utilities import *
 
 
 def config_parser():
@@ -43,5 +44,13 @@ def config_parser():
     parser.add_argument('-a', '--activation',default='sigmoid',
                         choices = ["identity", "sigmoid", "tanh", "ReLU"])
     return parser
+
+def trainer():
+    parser = config_parser()
+    args = parser.parse_args()
+
+    X_train, y_train, X_test, y_test, X_val, y_val = dataloader(args.d)
+    
+
 
 
